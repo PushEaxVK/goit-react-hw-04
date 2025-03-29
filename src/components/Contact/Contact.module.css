@@ -1,0 +1,25 @@
+.contact {
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.button {
+  height: 2rem;
+  border-radius: 0.2rem;
+  width: 5rem;
+}
+
+.icon {
+  margin-right: 1rem;
+}
