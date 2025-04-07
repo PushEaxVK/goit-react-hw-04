@@ -8,7 +8,7 @@ const API = {
   ACCESS_KEY: 'Vi2cAjvUvW27MVDBGg5H1AuSeD0n18wgJJaMXF67vcI',
 };
 
-export const searchImages = async (query, per_page = 12, page = 1) => {
+export const searchImages = async (query, page = 1, per_page = 12) => {
   const params = new URLSearchParams({
     query,
     client_id: API.ACCESS_KEY,
