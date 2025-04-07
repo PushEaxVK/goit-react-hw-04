@@ -8,6 +8,7 @@ function App() {
   useEffect(() => {
     const getData = async () => {
       const jsonData = await fakeSearch();
+      // const jsonData = await searchImages('cat', 10, 2);
       setData(jsonData);
     };
     getData();
