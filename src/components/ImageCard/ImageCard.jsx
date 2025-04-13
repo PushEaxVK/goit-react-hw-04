@@ -1,6 +1,16 @@
 import s from './ImageCard.module.css';
 
-const ImageCard = () => {
-  return <div>ImageCard</div>;
+const ImageCard = ({ image }) => {
+  return (
+    <li className={s.imageWrapper} style={{ backgroundColor: image.color }}>
+      <img
+        className={s.image}
+        src={image.small}
+        alt={image.alt}
+        data-src={image.regular}
+      />
+    </li>
+  );
 };
+
 export default ImageCard;

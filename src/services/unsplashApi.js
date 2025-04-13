@@ -1,5 +1,5 @@
-import photos from './photos.json';
-import photosQuery from './photos_query.json';
+import photos from '../photos.json';
+import photosQuery from '../photos_query.json';
 
 const API = {
   BASE: 'https://api.unsplash.com/',
@@ -17,6 +17,9 @@ export const searchImages = async (query, page = 1, per_page = 12) => {
   });
   const searchUrl = `${API.BASE}${API.SEARCH}?${params.toString()}`;
   const response = await fetch(searchUrl);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
   const data = await response.json();
   return data;
 };
