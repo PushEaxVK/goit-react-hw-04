@@ -16,13 +16,13 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [query, setQuery] = useState('');
+  const [modalUrl, setModalUrl] = useState('');
 
   const handleSearch = async (query, page) => {
     setCurrentPage(page);
     try {
       setLoading(true);
       setError(false);
-      // setData({});
       const jsonData = await searchImages(query, page);
       if (Object.keys(jsonData).length === 0) {
         console.log('jsonData is empty!');
@@ -54,7 +54,6 @@ function App() {
           return [...prev, ...newImages];
         });
       }
-      // setData(jsonData);
     } catch (error) {
       setError(true);
     } finally {
@@ -74,11 +73,16 @@ function App() {
           setQuery(searchQuery);
         }}
       />
-      {images.length > 0 && <ImageGallery images={images} />}
+      {images.length > 0 && (
+        <ImageGallery images={images} setModal={setModalUrl} />
+      )}
       {loading && <Loader />}
       {error && <ErrorMessage />}
       {currentPage < totalPages && !error && !loading && (
         <LoadMoreBtn loadMore={() => handleSearch(query, currentPage + 1)} />
+      )}
+      {modalUrl !== '' && (
+        <ImageModal modalUrl={modalUrl} setModal={setModalUrl} />
       )}
     </div>
   );

@@ -1,13 +1,20 @@
 import s from './ImageGallery.module.css';
 import ImageCard from '../ImageCard/ImageCard';
 
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images, setModal }) => {
   return (
-    <div>
+    <div className={s.gallery}>
       {/* <h2>ImageGallery</h2> */}
-      <ul className={s.imagesList}>
+      <ul
+        className={s.imagesList}
+        onClick={(e) => {
+          e.target.nodeName === 'IMG' && setModal(e.target.dataset.src);
+        }}
+      >
         {images.map((image) => (
-          <ImageCard key={image.id} image={image} />
+          <li key={image.id}>
+            <ImageCard image={image} />
+          </li>
         ))}
       </ul>
     </div>

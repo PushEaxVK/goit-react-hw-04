@@ -1,3 +1,12 @@
+:root {
+  --header-color: rgb(16, 16, 101);
+  --accent-color: rgb(32, 122, 255); /* яскравіший синій */
+  --light-color: #f0f4ff; /* світле тло */
+  --text-color: #1a1a1a; /* темний текст */
+  --border-radius: 8px;
+  --transition: 0.3s ease;
+}
+
 *,
 *::before,
 *::after {
@@ -17,4 +26,43 @@ img {
 
 button {
   cursor: pointer;
+}
+
+input {
+  padding: 10px 14px;
+  border: 2px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  background-color: white;
+  color: var(--text-color);
+  font-size: 16px;
+  transition: var(--transition);
+  outline: none;
+}
+
+input:focus {
+  border-color: rgb(24, 100, 210);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+input::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+button:hover {
+  background-color: rgb(24, 100, 210); /* темніший, але не як хедер */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
 }

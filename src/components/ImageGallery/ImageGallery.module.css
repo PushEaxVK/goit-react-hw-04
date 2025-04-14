@@ -1,3 +1,7 @@
+.gallery {
+  padding: 1rem;
+}
+
 .imagesList {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
