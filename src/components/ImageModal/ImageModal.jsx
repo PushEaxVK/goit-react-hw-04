@@ -19,7 +19,7 @@ const ImageModal = ({ modalUrl, setModal }) => {
   return (
     <div
       className={s.modal}
-      onClick={() => {
+      onClick={(event) => {
         setModal('');
       }}
     >

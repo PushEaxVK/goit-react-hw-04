@@ -7,9 +7,9 @@ import ImageGallery from './components/ImageGallery/ImageGallery';
 import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import ImageModal from './components/ImageModal/ImageModal';
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
-  // const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [images, setImages] = useState([]);
@@ -20,21 +20,26 @@ function App() {
 
   const handleSearch = async (query, page) => {
     setCurrentPage(page);
+    if (page === 1) {
+      setImages(() => {
+        return [];
+      });
+    }
     try {
       setLoading(true);
       setError(false);
       const jsonData = await searchImages(query, page);
-      if (Object.keys(jsonData).length === 0) {
-        console.log('jsonData is empty!');
+      if (
+        Object.keys(jsonData).length === 0 ||
+        !jsonData.results ||
+        jsonData.results.length === 0
+      ) {
+        toast.error('No results!');
+        setTotalPages(page);
         return;
       }
       if (page === 1 && jsonData.total_pages) {
         setTotalPages(jsonData.total_pages);
-      }
-      if (!jsonData.results || jsonData.results.length === 0) {
-        console.log('No results!');
-        setTotalPages(page);
-        return;
       }
       const newImages = jsonData.results.map((image) => {
         return {
@@ -46,7 +51,6 @@ function App() {
           id: image.id,
         };
       });
-      console.log(newImages);
       if (page === 1) {
         setImages(newImages);
       } else {
@@ -61,10 +65,6 @@ function App() {
     }
   };
 
-  const loadMore = () => {
-    handleSearch(query, currentPage + 1);
-  };
-
   return (
     <div className={css.app}>
       <SearchBar
@@ -72,18 +72,20 @@ function App() {
           handleSearch(searchQuery, 1);
           setQuery(searchQuery);
         }}
+        toast={toast}
       />
-      {images.length > 0 && (
+      {images.length > 0 && !error && (
         <ImageGallery images={images} setModal={setModalUrl} />
       )}
       {loading && <Loader />}
-      {error && <ErrorMessage />}
+      {error && <ErrorMessage toast={toast} />}
       {currentPage < totalPages && !error && !loading && (
         <LoadMoreBtn loadMore={() => handleSearch(query, currentPage + 1)} />
       )}
       {modalUrl !== '' && (
         <ImageModal modalUrl={modalUrl} setModal={setModalUrl} />
       )}
+      <Toaster position="top-right" />
     </div>
   );
 }
