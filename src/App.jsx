@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import css from './App.module.css';
 import axios from 'axios';
+import { fetchHits } from './services/api';
 // import { searchImages, fakeSearch } from './services/unsplashApi';
 // import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 // import SearchBar from './components/SearchBar/SearchBar';
@@ -104,10 +105,8 @@ function App() {
     hasFetched.current = true;
     const getData = async () => {
       try {
-        const response = await axios.get(
-          'https://hn.algolia.com/api/v1/search'
-        );
-        setHits(response.data.hits);
+        const data = await fetchHits();
+        setHits(data.hits);
       } catch (error) {
         console.log(error);
       }
