@@ -14,6 +14,7 @@ export const searchImages = async (query, page = 1, per_page = 12) => {
     client_id: API.ACCESS_KEY,
     per_page,
     page,
+    orientation: 'landscape',
   });
   const searchUrl = `${API.BASE}${API.SEARCH}?${params.toString()}`;
   const response = await fetch(searchUrl);
