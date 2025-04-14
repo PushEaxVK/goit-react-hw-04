@@ -102,21 +102,37 @@ function App() {
   useEffect(() => {
     if (hasFetched.current) return;
     hasFetched.current = true;
-
-    const controller = new AbortController();
-
-    axios
-      .get('https://hn.algolia.com/api/v1/search', {
-        signal: controller.signal,
-      })
-      .then((res) => {
-        setHits(res.data.hits);
-      });
-
-    return () => {
-      controller.abort;
+    const getData = async () => {
+      try {
+        const response = await axios.get(
+          'https://hn.algolia.com/api/v1/search'
+        );
+        setHits(response.data.hits);
+      } catch (error) {
+        console.log(error);
+      }
     };
+    getData();
   }, []);
+
+  // useEffect(() => {
+  //   if (hasFetched.current) return;
+  //   hasFetched.current = true;
+
+  //   const controller = new AbortController();
+
+  //   axios
+  //     .get('https://hn.algolia.com/api/v1/search', {
+  //       signal: controller.signal,
+  //     })
+  //     .then((res) => {
+  //       setHits(res.data.hits);
+  //     });
+
+  //   return () => {
+  //     controller.abort;
+  //   };
+  // }, []);
 
   return (
     <>
