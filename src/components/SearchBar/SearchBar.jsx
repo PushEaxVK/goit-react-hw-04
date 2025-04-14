@@ -1,4 +1,5 @@
 import s from './SearchBar.module.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (evt) => {
@@ -6,13 +7,18 @@ const SearchBar = ({ onSubmit }) => {
     const form = evt.target;
     const query = form.elements.query.value.trim();
 
+    if (query === '') {
+      toast('Query is empty!');
+      return;
+    }
+
     onSubmit(query);
     // console.log(`Search: ${query}`);
     form.reset();
   };
 
   return (
-    <header>
+    <header className={s.searchBar}>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -23,6 +29,7 @@ const SearchBar = ({ onSubmit }) => {
         />
         <button type="submit">Search</button>
       </form>
+      <Toaster />
     </header>
   );
 };
