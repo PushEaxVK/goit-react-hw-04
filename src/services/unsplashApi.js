@@ -1,5 +1,6 @@
 import photos from '../photos.json';
 import photosQuery from '../photos_query.json';
+import axios from 'axios';
 
 const API = {
   BASE: 'https://api.unsplash.com/',

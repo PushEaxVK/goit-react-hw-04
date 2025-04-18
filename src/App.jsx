@@ -90,7 +90,7 @@ function App() {
       {/*modalUrl !== '' && (
         <ImageModal modalUrl={modalUrl} setModal={setModalUrl} />
       )*/}
-      <Toaster position="top-right" />
+      <Toaster position="bottom-right" />
     </div>
   );
 }

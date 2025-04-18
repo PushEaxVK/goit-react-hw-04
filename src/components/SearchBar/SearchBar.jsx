@@ -1,7 +1,7 @@
 import s from './SearchBar.module.css';
 import toast from 'react-hot-toast';
 
-const SearchBar = ({ onSubmit, toast }) => {
+const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const form = evt.target;
