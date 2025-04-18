@@ -17,7 +17,32 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [query, setQuery] = useState('');
   const [modalUrl, setModalUrl] = useState('');
+  
+  useEffect(() => {
+    const loadImages = async () => {
+      try {
+        if (!query) return;
+        setLoading(true);
+        setError(false);
+        console.log(query, currentPage, totalPages);
+        console.log(images);
+      } catch {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadImages();
+    
+  }, [query, currentPage]);
 
+  function handleQuery(query) {
+    setImages([]);
+    setCurrentPage(0);
+    setQuery(query);
+  }
+  
+  
   /* const handleSearch = async (query, page) => {
     setCurrentPage(page);
     if (page === 1) {
@@ -67,16 +92,8 @@ function App() {
 
   return (
     <div className={css.app}>
-      <SearchBar onSubmit={setQuery} />
+      <SearchBar onSubmit={handleQuery} />
       <h2>Query: {query}</h2>
-      {/*
-      <SearchBar
-        onSubmit={(searchQuery) => {
-          handleSearch(searchQuery, 1);
-          setQuery(searchQuery);
-        }}
-        toast={toast}
-      />*/}
       
       {/*images.length > 0 && !error && (
         <ImageGallery images={images} setModal={setModalUrl} />
