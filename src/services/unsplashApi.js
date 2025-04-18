@@ -8,7 +8,7 @@ const API = {
 
 axios.defaults.baseURL = API.BASE;
 
-export const getImages = async (query, page) => {
+export const getImages = async (query, page, signal) => {
   const params = {
     query,
     client_id: API.ACCESS_KEY,
@@ -16,7 +16,7 @@ export const getImages = async (query, page) => {
     page,
     orientation: 'landscape',
   };
-  const response = await axios.get(API.SEARCH, {params});
+  const response = await axios.get(API.SEARCH, {params, signal});
   const results = response.data?.results ?? [];
   const newImages = results.map((image) => {
         return {

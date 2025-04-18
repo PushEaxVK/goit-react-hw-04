@@ -19,12 +19,14 @@ function App() {
   const [modalUrl, setModalUrl] = useState('');
   
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     const loadImages = async () => {
       try {
         if (!query) return;
         setLoading(true);
         setError(false);
-        const [newImages, pages] = await getImages(query, currentPage);
+        const [newImages, pages] = await getImages(query, currentPage, signal);
         if (currentPage === 1) {
           setTotalPages(pages);
         }
@@ -41,6 +43,7 @@ function App() {
     }
     loadImages();
     
+    return () => controller.abort();
   }, [query, currentPage]);
 
 
@@ -53,7 +56,6 @@ function App() {
   return (
     <div className={css.app}>
       <SearchBar onSubmit={handleQuery} />
-      <h2>Query: {query}</h2>
       
       {images.length > 0 && !error && (
         <ImageGallery images={images} setModal={setModalUrl} />
