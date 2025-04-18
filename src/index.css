@@ -29,14 +29,16 @@ button {
 }
 
 input {
-  padding: 10px 14px;
+  padding: 5px 7px;
   border: 2px solid var(--accent-color);
   border-radius: var(--border-radius);
   background-color: white;
   color: var(--text-color);
-  font-size: 16px;
+  font-size: 14px;
   transition: var(--transition);
   outline: none;
+  max-width: 180px;
+  margin-right: 10px;
 }
 
 input:focus {
@@ -50,12 +52,12 @@ input::placeholder {
 }
 
 button {
-  padding: 10px 20px;
+  padding: 5px 7px;
   background-color: var(--accent-color);
   color: white;
   border: none;
   border-radius: var(--border-radius);
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   transition: var(--transition);
   font-weight: 500;

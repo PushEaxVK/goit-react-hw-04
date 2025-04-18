@@ -1,4 +1,5 @@
 import s from './SearchBar.module.css';
+import toast from 'react-hot-toast';
 
 const SearchBar = ({ onSubmit, toast }) => {
   const handleSubmit = (evt) => {
@@ -8,7 +9,6 @@ const SearchBar = ({ onSubmit, toast }) => {
 
     if (query === '') {
       toast.error('Query is empty!');
-      return;
     }
 
     onSubmit(query);

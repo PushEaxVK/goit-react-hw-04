@@ -18,7 +18,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [modalUrl, setModalUrl] = useState('');
 
-  const handleSearch = async (query, page) => {
+  /* const handleSearch = async (query, page) => {
     setCurrentPage(page);
     if (page === 1) {
       setImages(() => {
@@ -63,28 +63,33 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
+  };*/
 
   return (
     <div className={css.app}>
+      <SearchBar onSubmit={setQuery} />
+      <h2>Query: {query}</h2>
+      {/*
       <SearchBar
         onSubmit={(searchQuery) => {
           handleSearch(searchQuery, 1);
           setQuery(searchQuery);
         }}
         toast={toast}
-      />
-      {images.length > 0 && !error && (
+      />*/}
+      
+      {/*images.length > 0 && !error && (
         <ImageGallery images={images} setModal={setModalUrl} />
-      )}
-      {loading && <Loader />}
-      {error && <ErrorMessage toast={toast} />}
-      {currentPage < totalPages && !error && !loading && (
+      )*/}
+      
+      {/*loading && <Loader />*/}
+      {/*error && <ErrorMessage toast={toast} />*/}
+      {/*currentPage < totalPages && !error && !loading && (
         <LoadMoreBtn loadMore={() => handleSearch(query, currentPage + 1)} />
-      )}
-      {modalUrl !== '' && (
+      )*/}
+      {/*modalUrl !== '' && (
         <ImageModal modalUrl={modalUrl} setModal={setModalUrl} />
-      )}
+      )*/}
       <Toaster position="top-right" />
     </div>
   );
