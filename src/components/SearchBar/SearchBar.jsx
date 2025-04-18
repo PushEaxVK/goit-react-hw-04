@@ -30,4 +30,5 @@ const SearchBar = ({ onSubmit }) => {
     </header>
   );
 };
+
 export default SearchBar;

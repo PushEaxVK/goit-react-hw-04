@@ -1,31 +1,33 @@
-import photos from '../photos.json';
-import photosQuery from '../photos_query.json';
 import axios from 'axios';
 
 const API = {
   BASE: 'https://api.unsplash.com/',
   SEARCH: 'search/photos',
-  HEADERS: ['Accept-Version: v1', 'Authorization: Client-ID YOUR_ACCESS_KEY'],
   ACCESS_KEY: 'Vi2cAjvUvW27MVDBGg5H1AuSeD0n18wgJJaMXF67vcI',
 };
 
-export const searchImages = async (query, page = 1, per_page = 12) => {
-  const params = new URLSearchParams({
+axios.defaults.baseURL = API.BASE;
+
+export const getImages = async (query, page) => {
+  const params = {
     query,
     client_id: API.ACCESS_KEY,
-    per_page,
+    per_page: 12,
     page,
     orientation: 'landscape',
-  });
-  const searchUrl = `${API.BASE}${API.SEARCH}?${params.toString()}`;
-  const response = await fetch(searchUrl);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  const data = await response.json();
-  return data;
-};
-
-export const fakeSearch = async (query, per_page = 12, page = 1) => {
-  return photosQuery;
-};
+  };
+  const response = await axios.get(API.SEARCH, {params});
+  const results = response.data?.results ?? [];
+  const newImages = results.map((image) => {
+        return {
+          alt: image.alt_description,
+          blurHash: image.blur_hash,
+          color: image.color,
+          small: image.urls.small,
+          regular: image.urls.regular,
+          id: image.id,
+        };
+      })
+  const total_pages = response.data?.total_pages;
+  return [newImages, total_pages];
+}
